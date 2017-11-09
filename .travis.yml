@@ -18,8 +18,10 @@ jdk:
   - oraclejdk8
   - openjdk8
 
-script:
+after_install:
   - mvn package
+
+script:
   - mvn enforcer:display-info
   - mvn site
   - mvn checkstyle:check
