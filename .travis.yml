@@ -19,6 +19,7 @@ jdk:
   - openjdk8
 
 script:
+  - mvn package
   - mvn enforcer:display-info
   - mvn site
   - mvn checkstyle:check
