@@ -1,19 +1,35 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<description><![CDATA[<h2>Code quality enforcement and reporting</h3><p><strong>Enforce and report code quality with JUnit, JaCoCo, Hamcrest, FindBugs, PMD, CodeNarc, Checkstyle (Google), Enforcer, Duplicate-Finder, JDepend, and more with this Maven POM.</strong></p><p><code>maven-code-quality-pom</code> is a spike Spring solution for providing Maven POMs with quality assurance features.</p><h3>Purpose</h3><p>The purpose of the project is to use the Maven Site Plugin to:</p><ol><li> Use the Maven Site Plugin to generate meaningful test and quality reporting artifacts</li><li> Enforce test coverage thresholds and code standards</li><li> Prevent source code that does not conform to standards from being merged into <code>master</code>.</li></ol>]]></description>
+
+	<!-- The Super POM. @see https://maven.apache.org/pom.html -->
+
+	<!-- The Basics @see https://maven.apache.org/pom.html#The_Basics -->
+
+	<!-- Recommended Order -->
+	<!-- groupId version description url inceptionYear organization licenses 
+		developers contributors mailingLists scm issueManagement ciManagement properties 
+		dependencyManagement dependencies repositories pluginRepositories build plugin 
+		executions with matching ids plugin configuration etc. reporting profiles -->
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.swindle</groupId>
 	<artifactId>maven-code-quality-pom</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>maven-code-quality-pom</name>
-	<inceptionYear>2017</inceptionYear>
-
+	<description><![CDATA[<h2>Code quality enforcement and reporting</h3><p><strong>Enforce and report code quality with JUnit, JaCoCo, Hamcrest, FindBugs, PMD, CodeNarc, Checkstyle (Google), Enforcer, Duplicate-Finder, JDepend, and more with this Maven POM.</strong></p><p><code>maven-code-quality-pom</code> is a spike Spring solution for providing Maven POMs with quality assurance features.</p><h3>Purpose</h3><p>The purpose of the project is to use the Maven Site Plugin to:</p><ol><li> Use the Maven Site Plugin to generate meaningful test and quality reporting artifacts</li><li> Enforce test coverage thresholds and code standards</li><li> Prevent source code that does not conform to standards from being merged into <code>master</code>.</li></ol>]]></description>
 	<url>https://github.com/gregswindle/maven-code-quality-pom</url>
+	<inceptionYear>2017</inceptionYear>
 	<organization>
 		<name>gregswindle</name>
 		<url>https://github.com/gregswindle</url>
 	</organization>
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>LICENSE</url>
+		</license>
+	</licenses>
 	<developers>
 		<developer>
 			<name>Greg Swindle</name>
@@ -23,26 +39,26 @@
 			<timezone>UTC-05:00</timezone>
 		</developer>
 	</developers>
+
+	
 	<scm>
 		<url>https://github.com/gregswindle/maven-code-quality-pom</url>
 		<connection>scm:git:https://github.com/gregswindle/maven-code-quality-pom</connection>
 		<developerConnection>scm:git:https://github.com/gregswindle/maven-code-quality-pom</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
-	<licenses>
-		<license>
-			<name>MIT</name>
-			<url>LICENSE</url>
-		</license>
-	</licenses>
+	
+	
+	
+	
 	<issueManagement>
 		<system>GitHub</system>
 		<url>${project.url}/issues</url>
-	</issueManagement>
-	<ciManagement>
+	</issueManagement><ciManagement>
 		<system>travis-ci</system>
 		<url>https://travis-ci.org/gregswindle/maven-code-quality-pom</url>
 	</ciManagement>
+	
 	<properties>
 		<checkstyle.version>8.4</checkstyle.version>
 		<coveralls.token>${env.COVERALLS_MAVEN_CODE_QUALITY_POM_TOKEN}</coveralls.token>
@@ -58,6 +74,10 @@
 		<sonar.property.login>${env.SONAR_TOKEN}</sonar.property.login>
 		<sonar.property.organization>${env.SONAR_ORGANIZATION}</sonar.property.organization>
 		<spring.boot.maven.plugin.version>1.5.4.RELEASE</spring.boot.maven.plugin.version>
+		<spring.boot.version>1.5.8.RELEASE</spring.boot.version>
+		<spring.mobile.version>1.1.5.RELEASE</spring.mobile.version>
+		<spring.security.version>4.2.3.RELEASE</spring.security.version>
+		<spring.version>4.3.12.RELEASE</spring.version>
 		<versioneye.apiKey>${env.VERSIONEYE_API_KEY}</versioneye.apiKey>
 		<versioneye.organization>gregswindle_orga</versioneye.organization>
 	</properties>
@@ -65,17 +85,17 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>5.0.1.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>5.0.1.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
-			<version>5.0.1.RELEASE</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
@@ -90,7 +110,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-autoconfigure</artifactId>
-			<version>1.5.8.RELEASE</version>
+			<version>${spring.boot.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -119,13 +139,13 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>5.0.1.RELEASE</version>
+			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-test</artifactId>
-			<version>1.5.8.RELEASE</version>
+			<version>${spring.boot.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -163,6 +183,26 @@
 		</dependency>
 	</dependencies>
 	<build>
+	  <directory>${project.basedir}/target</directory>
+	  <!-- <outputDirectory${project.basedir}></outputDirectory> -->
+	  <finalName>${project.artifactId}-${project.version}</finalName>
+		<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+		<testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+		<scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+		<resources>
+		  <resource>
+		    <directory>${project.basedir}/src/main/resources</directory>
+		  </resource>
+		  <resource>
+        <directory>${project.basedir}/src/qa/resources</directory>
+      </resource>
+		</resources>
+		<testResources>
+		  <testResource>
+		    <directory>${project.basedir}/src/test/resources</directory>
+		  </testResource>
+		</testResources>
+		
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -172,16 +212,16 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<sourceDirectory>src/main/java</sourceDirectory>
-		<testSourceDirectory>src/test/java</testSourceDirectory>
+		
+		
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -425,37 +465,11 @@
 			</plugin>
 		</plugins>
 	</build>
-	<profiles>
-		<profile>
-			<id>sonar</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<properties>
-				<!-- Optional URL to server. Default value is http://localhost:9000 -->
-				<sonar.host.url>
-					https://sonarcloud.io
-				</sonar.host.url>
-				<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
-				<sonar.projectKey>gregswindle-github</sonar.projectKey>
-				<sonar.projectName>${project.artifactId}</sonar.projectName>
-				<sonar.projectVersion>${project.version}</sonar.projectVersion>
-				<sonar.links.homepage>${project.url}</sonar.links.homepage>
-				<sonar.links.ci>${project.ciManagement.url}</sonar.links.ci>
-				<sonar.links.scm>${project.scm.url}</sonar.links.scm>
-				<sonar.links.issue>${project.issueManagement.url}</sonar.links.issue>
-				<sonar.organization>${sonar.property.organization}</sonar.organization>
-				<sonar.login>${sonar.property.login}</sonar.login>
-			</properties>
-		</profile>
-	</profiles>
 	<reporting>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>
-          maven-project-info-reports-plugin
-        </artifactId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
 				<version>2.9</version>
 				<reportSets>
 					<reportSet>
@@ -521,7 +535,7 @@
 					<linkXref>true</linkXref>
 					<sourceEncoding>utf-8</sourceEncoding>
 					<minimumTokens>100</minimumTokens>
-					<targetJdk>1.8</targetJdk>
+					<targetJdk>${jdk.version}</targetJdk>
 					<excludes>
 						<exclude>**/*Test.java</exclude>
 						<exclude>**/generated/*.java</exclude>
@@ -602,5 +616,29 @@
 
 
 		</plugins>
-	</reporting>
+	</reporting><profiles>
+		<profile>
+			<id>sonar</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<!-- Optional URL to server. Default value is http://localhost:9000 -->
+				<sonar.host.url>
+					https://sonarcloud.io
+				</sonar.host.url>
+				<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+				<sonar.projectKey>gregswindle-github</sonar.projectKey>
+				<sonar.projectName>${project.artifactId}</sonar.projectName>
+				<sonar.projectVersion>${project.version}</sonar.projectVersion>
+				<sonar.links.homepage>${project.url}</sonar.links.homepage>
+				<sonar.links.ci>${project.ciManagement.url}</sonar.links.ci>
+				<sonar.links.scm>${project.scm.url}</sonar.links.scm>
+				<sonar.links.issue>${project.issueManagement.url}</sonar.links.issue>
+				<sonar.organization>${sonar.property.organization}</sonar.organization>
+				<sonar.login>${sonar.property.login}</sonar.login>
+			</properties>
+		</profile>
+	</profiles>
+	
 </project>
