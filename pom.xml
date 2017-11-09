@@ -45,6 +45,7 @@
 	</ciManagement>
 	<properties>
 		<checkstyle.version>8.4</checkstyle.version>
+		<coveralls.token>${env.COVERALLS_MAVEN_CODE_QUALITY_POM_TOKEN}</coveralls.token>
 		<jdk.version>1.8</jdk.version>
 		<maven.checkstyle.plugin.version>2.17</maven.checkstyle.plugin.version>
 		<maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
@@ -188,18 +189,18 @@
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>3.0.4</version>
 			</plugin>
-			<!-- JaCoCo (0) Code coverage configuration. Order of execution is: (1)
-				Prepare agent is run to configure the property, then (2) Unit tests are run,
+			<!-- JaCoCo (0) Code coverage configuration. Order of execution is: (1) 
+				Prepare agent is run to configure the property, then (2) Unit tests are run, 
 				then (3) Run jacoco's check goal to determine code coverage. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>${maven.surefire.plugin.version}</version>
 				<configuration>
-					<!-- JaCoCo (2) Setup the argLine and run the unit tests. **NOTE the
-						"jacocArgLine" property was configured the "prepare-agent" goal of Jacoco
-						(see below). If you want to resolve the property value as late as possible
-						(i.e. your dynamically alter this property value before reaching this phase),
+					<!-- JaCoCo (2) Setup the argLine and run the unit tests. **NOTE the 
+						"jacocArgLine" property was configured the "prepare-agent" goal of Jacoco 
+						(see below). If you want to resolve the property value as late as possible 
+						(i.e. your dynamically alter this property value before reaching this phase), 
 						Maven gives you option to use @{jacocoArgLine} instead -->
 					<argLine>${jacocoArgLine} -Xmx256m</argLine>
 				</configuration>
@@ -246,8 +247,8 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.7.9</version>
 				<executions>
-					<!-- JaCoCo (1) Prepare agent runs in the init phase, it setups the
-						jacocoProperty, so we can insert this to the maven sure fire argLine and
+					<!-- JaCoCo (1) Prepare agent runs in the init phase, it setups the 
+						jacocoProperty, so we can insert this to the maven sure fire argLine and 
 						get to run jacoco as agent. -->
 					<execution>
 						<id>prepare-agent</id>
@@ -261,7 +262,7 @@
 							</includes>
 						</configuration>
 					</execution>
-					<!-- JaCoCo (3) The check goal by default runs in the verify phase,
+					<!-- JaCoCo (3) The check goal by default runs in the verify phase, 
 						we want to fail the build if minimum code coverage checks aren't met. -->
 					<execution>
 						<id>check</id>
@@ -270,7 +271,7 @@
 						</goals>
 						<configuration>
 							<rules>
-								<!-- All classes must have 90% line and branch coverage. Note we
+								<!-- All classes must have 90% line and branch coverage. Note we 
 									use 2 d.p so that we get can any check failure messages reported to 2 d.p. -->
 								<rule>
 									<element>BUNDLE</element>
@@ -414,6 +415,14 @@
 				<artifactId>maven-enforcer-plugin</artifactId>
 				<version>3.0.0-M1</version>
 			</plugin>
+			<plugin>
+				<groupId>org.eluder.coveralls</groupId>
+				<artifactId>coveralls-maven-plugin</artifactId>
+				<version>4.3.0</version>
+				<configuration>
+					<repoToken>${coveralls.token}</repoToken>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<profiles>
@@ -442,16 +451,16 @@
 	</profiles>
 	<reporting>
 		<plugins>
- 		<plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>
           maven-project-info-reports-plugin
         </artifactId>
 				<version>2.9</version>
 				<reportSets>
-				  <reportSet>
-				    <reports>
-				      <report>index</report>
+					<reportSet>
+						<reports>
+							<report>index</report>
 							<report>cim</report>
 							<report>dependencies</report>
 							<report>dependency-convergence</report>
@@ -468,12 +477,11 @@
 							<report>project-team</report>
 							<report>scm</report>
 							<report>summary</report>
-				    </reports>
-				  </reportSet>
+						</reports>
+					</reportSet>
 				</reportSets>
-				<!-- <configuration>
-					<dependencyLocationsEnabled>true</dependencyLocationsEnabled>
-				</configuration> -->
+				<!-- <configuration> <dependencyLocationsEnabled>true</dependencyLocationsEnabled> 
+					</configuration> -->
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -489,10 +497,10 @@
 				<version>0.7.9</version>
 			</plugin>
 			<plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>codenarc-maven-plugin</artifactId>
-        <version>0.22-1</version>
-      </plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>codenarc-maven-plugin</artifactId>
+				<version>0.22-1</version>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
@@ -530,10 +538,11 @@
 				<version>2.0</version>
 			</plugin>
 			<plugin>
-        <groupId>org.owasp</groupId>
-        <artifactId>dependency-check-maven</artifactId>
-        <version>3.0.1</version>
-      </plugin><plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>3.0.1</version>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>${maven.dependency.plugin.version}</version>
@@ -542,7 +551,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-plugin-plugin</artifactId>
 				<version>3.5</version>
-			</plugin><plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>versions-maven-plugin</artifactId>
 				<version>2.5</version>
@@ -555,7 +565,8 @@
 						</reports>
 					</reportSet>
 				</reportSets>
-			</plugin><plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>2.5</version>
@@ -569,21 +580,22 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changelog-plugin</artifactId>
 				<version>2.3</version>
-			</plugin><plugin>
+			</plugin>
+			<plugin>
 				<groupId>org.codehaus.plexus</groupId>
 				<artifactId>plexus-component-metadata</artifactId>
 				<version>1.7.1</version>
 			</plugin>
 			<plugin>
-        <groupId>org.basepom.maven</groupId>
-        <artifactId>duplicate-finder-maven-plugin</artifactId>
-        <version>1.2.1</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0-M1</version>
-      </plugin>
+				<groupId>org.basepom.maven</groupId>
+				<artifactId>duplicate-finder-maven-plugin</artifactId>
+				<version>1.2.1</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M1</version>
+			</plugin>
 
 
 
